@@ -1,0 +1,43 @@
+html {
+    font-family: Helvetica;
+    display: inline-block;
+    margin: 0px auto;
+    text-align: center;
+  }
+  h1{
+    color: #0F3376;
+    border: 2px solid #0F3376;
+    border-radius: 5px;
+    padding: 2vh;
+    margin-bottom: 10;
+    max-width: 450px;
+    margin: 20px auto 20px;
+    
+  }
+  p{
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  div{
+    border: 2px solid #bebebe;
+    background: #bebebe;
+    border-radius: 5px;
+    padding-top: 20;
+    max-width: 450px;
+    margin: 0px auto 20px;
+  }
+  .button {
+    display: inline-block;
+    background-color: #0041ba;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 16px 40px;
+    text-decoration: none;
+    font-size: 30px;
+    margin: 2px;
+    cursor: pointer;
+  }
+  .button2 {
+    background-color: #66c70b;
+  }
