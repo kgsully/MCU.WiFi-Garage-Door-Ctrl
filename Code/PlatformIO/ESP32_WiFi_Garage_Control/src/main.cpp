@@ -1,6 +1,8 @@
 /* 
 ESP32 WiFi Garage Door Controller
-by Ken S. (12/2022)
+by Ken S. 
+Last updated: 08/2024
+Original:     12/2022
 
 Code for an ESP32-WROOM based design for a WiFi enabled garage door controller capable of operating 2 garage doors. 
 It includes illuminated physical pushbuttons wired in parallel with relays to allow the user to operate the 
@@ -9,6 +11,15 @@ Included controls mimic those found on the manufacturer provided openers for the
 The ESP32 acts as a webserver hosting a website with the applicable controls / status indications for both doors. 
 This project uses the WiFi manager library to aid in WiFi connection and to prevent the 
 need to hard-code the WiFi network credentials into the program. OTA update functionality is also included.
+
+Update - 08/2024:
+- Refactor to separate Javascript into app.js
+- Added functionality for a minimal version of the website providing only door controls without feedback display.
+  This is intended to be used with an apple watch, whose webkit (at the time of this writing) has little / no
+  javascript support. As a result, transactions between the web front-end and the MCU backend are accomplished
+  via form submission and conditionals based upon the parameter key/value pair. Create a shortcut on the apple
+  watch (Open URL --> [deviceURL]/watch) in order to open the website.
+
 
 THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY
 EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -204,12 +215,29 @@ void setup() {
   webServer.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/index.html", String(), false);  // String(), false, processor instead of webpage
   });
-  // Route to load style.css file
+  // Route to Watch Web Page
+  webServer.on("/watch", HTTP_GET, [](AsyncWebServerRequest *request){
+    
+    if(request->hasParam("door")){
+      String reqMessage;
+      reqMessage = request->getParam("door")->value();
+      if(reqMessage == "1") {
+        door1_CMD = 1;
+      } else if (reqMessage == "2") {
+        door2_CMD = 1;
+      }
+    }
+    request->send(SPIFFS, "/index-watch.html", String(), false);  // String(), false, processor instead of webpage
+  });
   webServer.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/style.css", "text/css");
   });
+  // Route to load app.js file
+  webServer.on("/app.js", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/app.js", "text/javascript");
+  });
   // Route to favicon
-  webServer.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request){
+  webServer.on("/favicon.png", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/favicon.png", "image/png");
   });
   // Route to Locked icon
