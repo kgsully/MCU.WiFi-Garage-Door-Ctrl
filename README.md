@@ -6,6 +6,8 @@ ESP32-WROOM Based WiFi enabled garage door controller design.
  Schematics and drawings may be found within the documentation folder (dimensions are in mm). 
  
  3D design / printing models are located under the 'Enclosure' folder.
+
+ Design updated for additional endpoint to allow for use with Apple Watch.
  
 ![Imgur](https://i.imgur.com/QHDdKEv.jpg)
 
