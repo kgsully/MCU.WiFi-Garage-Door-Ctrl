@@ -7,3 +7,8 @@ ESP32-WROOM Based WiFi enabled garage door controller design.
  
  3D design / printing models are located under the 'Enclosure' folder.
  
+![Imgur](https://i.imgur.com/QHDdKEv.jpg)
+
+![Imgur](https://i.imgur.com/AIP3lvz.jpg)
+
+![Imgur](https://i.imgur.com/hy8GbtA.png)
